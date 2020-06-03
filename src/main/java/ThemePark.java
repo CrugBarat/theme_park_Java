@@ -3,6 +3,7 @@ import behaviours.IReviewed;
 import people.Visitor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ThemePark {
 
@@ -41,6 +42,13 @@ public class ThemePark {
    public void visit(Visitor visitor, Attraction attraction) {
         increaseVisitCount(attraction);
         visitor.addVisitedAttraction(attraction);
+   }
+
+   public HashMap<String, Integer> getReviewHash() {
+       HashMap<String, Integer> reviewHash = new HashMap<>();
+       for(IReviewed review : this.reviews) {
+           reviewHash.put(review.getName(), review.getRating());
+       } return reviewHash;
    }
 
 }

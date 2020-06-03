@@ -4,14 +4,13 @@ import behaviours.IReviewed;
 import org.junit.Before;
 import org.junit.Test;
 import people.Visitor;
-
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertTrue;
 
 public class ThemeParkTest {
 
     ThemePark themePark;
-    Attraction attraction1;
+    Attraction attraction1, attraction2;
     IReviewed review;
     Visitor visitor;
 
@@ -19,6 +18,7 @@ public class ThemeParkTest {
     public void before() {
         themePark = new ThemePark();
         attraction1 = new Dodgems("Bumper Cars", 5);
+        attraction2 = new Dodgems("Crazy Taxi", 8);
         review = new Dodgems("Bumper Cars", 5);
         visitor = new Visitor(14, 1.2, 40.0);
     }
@@ -64,6 +64,24 @@ public class ThemeParkTest {
         assertEquals(1, attraction1.getVisitCount());
     }
 
+    @Test
+    public void reviewHashIsPopulated() {
+        themePark.addReview(attraction1);
+        assertEquals(1, themePark.getReviewHash().size());
+    }
 
+    @Test
+    public void reviewHashIsPopulatedWithMultipleReviews() {
+        themePark.addReview(attraction1);
+        themePark.addReview(attraction2);
+        assertEquals(2, themePark.getReviewHash().size());
+    }
+
+    @Test
+    public void reviewHashHasEntry() {
+        themePark.addReview(attraction1);
+        assertTrue(themePark.getReviewHash().containsKey("Bumper Cars"));
+        assertTrue(themePark.getReviewHash().containsValue(5));
+    }
 
 }
