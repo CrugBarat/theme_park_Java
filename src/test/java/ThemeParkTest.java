@@ -18,7 +18,7 @@ public class ThemeParkTest {
 
     ThemePark themePark;
     Attraction attraction1, attraction2, attraction3;
-    Stall stall;
+    Stall stall, stall2;
     IReviewed review;
     Visitor visitor, visitor2, visitor3;
 
@@ -29,6 +29,7 @@ public class ThemeParkTest {
         attraction2 = new RollerCoaster("Big Dipper", 8);
         attraction3 = new Playground("Swings", 5);
         stall = new TobaccoStall("Jacks Drum", "Jack Jarvis", ParkingSpot.B1, 6);
+        stall2 = new CandyflossStall("Candy Land", "Harry Belafonte", ParkingSpot.A1, 8);
         review = new Dodgems("Bumper Cars", 5);
         visitor = new Visitor(14, 1.2, 40.0);
         visitor2 = new Visitor(11, 1.2, 40.0);
@@ -127,6 +128,16 @@ public class ThemeParkTest {
         themePark.addStall(stall);
         themePark.addReviews();
         assertEquals(2, themePark.getAllAllowedFor(visitor3).size());
+    }
+
+    @Test
+    public void visitorIsAllowedForReviewedWithNoSecurity() {
+        themePark.addAttraction(attraction2);
+        themePark.addAttraction(attraction3);
+        themePark.addStall(stall);
+        themePark.addStall(stall2);
+        themePark.addReviews();
+        assertEquals(3, themePark.getAllAllowedFor(visitor3).size());
     }
 
 }
