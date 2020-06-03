@@ -2,6 +2,7 @@ import attractions.Attraction;
 import behaviours.IReviewed;
 import behaviours.ISecurity;
 import people.Visitor;
+import stalls.Stall;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,10 +10,12 @@ import java.util.HashMap;
 public class ThemePark {
 
     private ArrayList<Attraction> attractions;
+    private ArrayList<Stall> stalls;
     private ArrayList<IReviewed> reviews;
 
     public ThemePark() {
         this.attractions = new ArrayList<>();
+        this.stalls = new ArrayList<>();
         this.reviews = new ArrayList<>();
     }
 
@@ -24,12 +27,21 @@ public class ThemePark {
         this.attractions.add(attraction);
     }
 
+    public int getStallSize() {
+        return this.stalls.size();
+    }
+
+    public void addStall(Stall stall) {
+        this.stalls.add(stall);
+    }
+
     public int getReviewListSize() {
         return this.reviews.size();
     }
 
-    public void addReview(IReviewed review) {
-        this.reviews.add(review);
+    public void addReviews() {
+        this.reviews.addAll(this.attractions);
+        this.reviews.addAll(this.stalls);
     }
 
     public ArrayList<IReviewed> getAllReviewed() {
@@ -54,9 +66,9 @@ public class ThemePark {
 
    public ArrayList<IReviewed> getAllAllowedFor(Visitor visitor) {
        ArrayList<IReviewed> allowedToList = new ArrayList<>();
-       for (Attraction attraction: this.attractions) {
-           if (((ISecurity) attraction).isAllowedTo(visitor)) {
-               allowedToList.add(attraction);
+       for (IReviewed review : this.reviews) {
+           if (((ISecurity) review).isAllowedTo(visitor)) {
+               allowedToList.add(review);
            }
        } return allowedToList;
    }

@@ -1,7 +1,6 @@
 package attractions;
 
 import behaviours.IReviewed;
-import people.Visitor;
 
 public abstract class Attraction implements IReviewed {
     private String name;

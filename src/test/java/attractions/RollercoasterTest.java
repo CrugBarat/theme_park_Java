@@ -5,6 +5,7 @@ import org.junit.Test;
 import people.Visitor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RollercoasterTest {
 
@@ -35,14 +36,14 @@ public class RollercoasterTest {
     }
 
     @Test
-    public void canVisitCount() {
+    public void canSetVisitCount() {
         rollerCoaster.setVisitCount(5);
         assertEquals(5, rollerCoaster.getVisitCount());
     }
 
     @Test
     public void canCheckForAgeOver12AndHeightOver145() {
-        assertEquals(true, rollerCoaster.isAllowedTo(visitor2));
+        assertTrue(rollerCoaster.isAllowedTo(visitor2));
     }
 
     @Test

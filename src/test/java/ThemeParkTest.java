@@ -6,6 +6,11 @@ import behaviours.IReviewed;
 import org.junit.Before;
 import org.junit.Test;
 import people.Visitor;
+import stalls.CandyflossStall;
+import stalls.ParkingSpot;
+import stalls.Stall;
+import stalls.TobaccoStall;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -13,8 +18,9 @@ public class ThemeParkTest {
 
     ThemePark themePark;
     Attraction attraction1, attraction2, attraction3;
+    Stall stall;
     IReviewed review;
-    Visitor visitor, visitor2;
+    Visitor visitor, visitor2, visitor3;
 
     @Before
     public void before() {
@@ -22,9 +28,11 @@ public class ThemeParkTest {
         attraction1 = new Dodgems("Bumper Cars", 5);
         attraction2 = new RollerCoaster("Big Dipper", 8);
         attraction3 = new Playground("Swings", 5);
+        stall = new TobaccoStall("Jacks Drum", "Jack Jarvis", ParkingSpot.B1, 6);
         review = new Dodgems("Bumper Cars", 5);
         visitor = new Visitor(14, 1.2, 40.0);
         visitor2 = new Visitor(11, 1.2, 40.0);
+        visitor3 = new Visitor(13, 1.5, 40.0);
     }
 
     @Test
@@ -39,14 +47,27 @@ public class ThemeParkTest {
     }
 
     @Test
+    public void stillSizeStartsAtZero() {
+        assertEquals(0, themePark.getStallSize());
+    }
+
+    @Test
+    public void canAddAStall() {
+        themePark.addStall(stall);
+        assertEquals(1, themePark.getStallSize());
+    }
+
+    @Test
     public void reviewSizeStartsAtZero() {
         assertEquals(0, themePark.getReviewListSize());
     }
 
     @Test
     public void canAddReview() {
-        themePark.addReview(review);
-        assertEquals(1, themePark.getReviewListSize());
+        themePark.addAttraction(attraction1);
+        themePark.addStall(stall);
+        themePark.addReviews();
+        assertEquals(2, themePark.getReviewListSize());
     }
 
     @Test
@@ -70,20 +91,23 @@ public class ThemeParkTest {
 
     @Test
     public void reviewHashIsPopulated() {
-        themePark.addReview(attraction1);
+        themePark.addAttraction(attraction1);
+        themePark.addReviews();
         assertEquals(1, themePark.getReviewHash().size());
     }
 
     @Test
     public void reviewHashIsPopulatedWithMultipleReviews() {
-        themePark.addReview(attraction1);
-        themePark.addReview(attraction2);
+        themePark.addAttraction(attraction1);
+        themePark.addAttraction(attraction2);
+        themePark.addReviews();
         assertEquals(2, themePark.getReviewHash().size());
     }
 
     @Test
     public void reviewHashHasEntry() {
-        themePark.addReview(attraction1);
+        themePark.addAttraction(attraction1);
+        themePark.addReviews();
         assertTrue(themePark.getReviewHash().containsKey("Bumper Cars"));
         assertTrue(themePark.getReviewHash().containsValue(5));
     }
@@ -92,14 +116,17 @@ public class ThemeParkTest {
     public void visitorIsAllowedToPlayground() {
         themePark.addAttraction(attraction2);
         themePark.addAttraction(attraction3);
+        themePark.addReviews();
         assertEquals(1, themePark.getAllAllowedFor(visitor2).size());
     }
 
     @Test
-    public void visitorIsAllowedToRollercoasterAndPlayground() {
+    public void visitorIsAllowedToRollercoasterAndPlaygroundButNotTobacco() {
         themePark.addAttraction(attraction2);
         themePark.addAttraction(attraction3);
-        assertEquals(2, themePark.getAllAllowedFor(visitor).size());
+        themePark.addStall(stall);
+        themePark.addReviews();
+        assertEquals(2, themePark.getAllAllowedFor(visitor3).size());
     }
 
 }
