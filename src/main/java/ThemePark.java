@@ -1,5 +1,6 @@
 import attractions.Attraction;
 import behaviours.IReviewed;
+import behaviours.ISecurity;
 import people.Visitor;
 
 import java.util.ArrayList;
@@ -49,6 +50,15 @@ public class ThemePark {
        for(IReviewed review : this.reviews) {
            reviewHash.put(review.getName(), review.getRating());
        } return reviewHash;
+   }
+
+   public ArrayList<IReviewed> getAllAllowedFor(Visitor visitor) {
+       ArrayList<IReviewed> allowedToList = new ArrayList<>();
+       for (Attraction attraction: this.attractions) {
+           if (((ISecurity) attraction).isAllowedTo(visitor)) {
+               allowedToList.add(attraction);
+           }
+       } return allowedToList;
    }
 
 }
