@@ -9,13 +9,14 @@ import static org.junit.Assert.assertEquals;
 public class RollercoasterTest {
 
     RollerCoaster rollerCoaster;
-    Visitor visitor1, visitor2;
+    Visitor visitor1, visitor2, michael;
 
     @Before
     public void setUp() {
         rollerCoaster = new RollerCoaster("Blue Ridge", 10);
         visitor1 = new Visitor(11, 1.2, 40.0);
         visitor2 = new Visitor(16, 1.5, 20.0);
+        michael = new Visitor(30, 2.1, 10000.0);
     }
 
     @Test
@@ -41,6 +42,21 @@ public class RollercoasterTest {
     @Test
     public void canCheckForAgeUnder12AndHeightOver145() {
         assertEquals(false, rollerCoaster.isAllowedTo(visitor1));
+    }
+
+    @Test
+    public void canGetDefaultPrice() {
+        assertEquals(8.40, rollerCoaster.defaultPrice(), 0.01);
+    }
+
+    @Test
+    public void canGetPriceForMichael() {
+        assertEquals(16.80, rollerCoaster.priceFor(michael), 0.01);
+    }
+
+    @Test
+    public void canGetPriceForVisitorUnder200cm() {
+        assertEquals(8.40, rollerCoaster.priceFor(visitor1), 0.01);
     }
 
 }
