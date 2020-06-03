@@ -37,4 +37,10 @@ public class ThemePark {
     public void increaseVisitCount(Attraction attraction) {
         attraction.setVisitCount(attraction.getVisitCount() + 1);
     }
+
+   public void visit(Visitor visitor, Attraction attraction) {
+        increaseVisitCount(attraction);
+        visitor.addVisitedAttraction(attraction);
+   }
+
 }
