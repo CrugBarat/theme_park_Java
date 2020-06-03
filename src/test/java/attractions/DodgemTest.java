@@ -35,6 +35,12 @@ public class DodgemTest {
     }
 
     @Test
+    public void canVisitCount() {
+        dodgems.setVisitCount(5);
+        assertEquals(5, dodgems.getVisitCount());
+    }
+
+    @Test
     public void canGetDefaultPrice() {
         assertEquals(4.50, dodgems.defaultPrice(), 0.01);
     }

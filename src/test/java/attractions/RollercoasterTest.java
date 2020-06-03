@@ -35,6 +35,12 @@ public class RollercoasterTest {
     }
 
     @Test
+    public void canVisitCount() {
+        rollerCoaster.setVisitCount(5);
+        assertEquals(5, rollerCoaster.getVisitCount());
+    }
+
+    @Test
     public void canCheckForAgeOver12AndHeightOver145() {
         assertEquals(true, rollerCoaster.isAllowedTo(visitor2));
     }

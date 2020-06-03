@@ -28,4 +28,10 @@ public class ParkTest {
     public void hasVisitCount() {
         assertEquals(0, park.getVisitCount());
     }
+
+    @Test
+    public void canVisitCount() {
+        park.setVisitCount(5);
+        assertEquals(5, park.getVisitCount());
+    }
 }

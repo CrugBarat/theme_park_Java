@@ -34,6 +34,12 @@ public class PlaygroundTest {
     }
 
     @Test
+    public void canVisitCount() {
+        playground.setVisitCount(5);
+        assertEquals(5, playground.getVisitCount());
+    }
+
+    @Test
     public void canCheckForAgeOver15() {
         assertEquals(false, playground.isAllowedTo(visitor2));
     }

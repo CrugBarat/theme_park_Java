@@ -41,4 +41,11 @@ public class ThemeParkTest {
         assertEquals(1, themePark.getReviewListSize());
     }
 
+    @Test
+    public void canIncreaseVisitCountBy1() {
+        attraction1.setVisitCount(5);
+        themePark.increaseVisitCount(attraction1);
+        assertEquals(6, attraction1.getVisitCount());
+    }
+
 }
